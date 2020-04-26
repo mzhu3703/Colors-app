@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 
+//footer found in single palette and platte components 
 class Footer extends Component{
     render(){
         return(

@@ -4,6 +4,7 @@ import ColorBox from './ColorBox'
 import Footer from './Footer'
 import '/home/michael/colors-app/colors-app/src/Styling/Palette.css';
 
+//represents each palette. Linked from palettelist 
 class Palette extends Component {
     constructor(props) {
         super(props);

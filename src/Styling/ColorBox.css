@@ -18,7 +18,7 @@
     color: white;
     background-color: black;
 }
-.copy-button{
+.copy-button, .back-button{
     width: 100px;
     height: 30px;
     position: absolute;
@@ -60,6 +60,10 @@
     
 }
 
+.light-text{
+    color:white;
+}
+
 .more-button{
     position: absolute;
     bottom: 0;
@@ -72,7 +76,9 @@
     text-align: center;
     transition: all .2s ease-in-out;
 }
-
+.ColorBox .dark-text{
+    color: rgb(0, 0, 0,0.5);
+}
 .more-button:hover{
     transform: scale(1.1); 
 }

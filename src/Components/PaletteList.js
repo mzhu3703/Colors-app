@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import MiniPalette from './MiniPalette';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -34,16 +33,13 @@ const styles = {
 
     }
 }
+//displays the different palettes on the front page . Parent is app
 class PaletteList extends Component {
-    constructor(props) {
-        super(props);
-        
-    }
 
-    link(id){
+    link(id) {
         this.props.history.push(`/palette/${id}`)
     }
-  
+
     render() {
         return (
             <div className={this.props.classes.root}>
@@ -55,7 +51,7 @@ class PaletteList extends Component {
                         {/* loops through the seedColor and creates a link to the corresponding palette  */}
                         {this.props.palettes.map(palettes => (
 
-                            <MiniPalette onClick={this.handleClick} palette={palettes} handleClick = {() => this.link(palettes.id)}></MiniPalette>
+                            <MiniPalette key={palettes.id} onClick={this.handleClick} palette={palettes} handleClick={() => this.link(palettes.id)}></MiniPalette>
 
                         ))}
                     </div>

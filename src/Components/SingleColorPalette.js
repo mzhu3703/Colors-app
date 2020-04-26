@@ -3,6 +3,8 @@ import ColorBox from './ColorBox'
 import NavBar from './NavBar'
 import Footer from './Footer'
 import {Link} from 'react-router-dom'
+
+//palette of a single color. Linked from color box
 class SingleColorPalette extends Component {
 
     constructor(props) {
@@ -44,7 +46,7 @@ class SingleColorPalette extends Component {
                 </div>
                 <div className='Palette-colors'>{singlePalette}
                     <div className = 'back ColorBox'>
-                        <Link className = 'back-button'>back</Link>
+                        <Link className = 'back-button' to = {`/palette/${this.props.palette.id}`}>Back</Link>
                     </div>
                 </div>
                 <Footer emoji = {this.props.palette.emoji} content = {this.props.palette.paletteName} ></Footer>

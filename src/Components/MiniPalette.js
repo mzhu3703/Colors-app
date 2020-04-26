@@ -43,7 +43,7 @@ const styles = {
         marginBottom: "-3.5px"
     }
 }
-
+//clickable boxes on front page. Parent is PaletteList
 function MiniPalette(props) {
     const { classes } = props;
     const miniColorBoxes = props.palette.colors.map(color => (
