@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import NavBar from './NavBar'
 import ColorBox from './ColorBox'
 import Footer from './Footer'
-import '/home/michael/colors-app/colors-app/src/Styling/Palette.css';
-
+import { withStyles } from '@material-ui/core/styles';
+import styles from '/home/michael/colors-app/colors-app/src/Styling/PaletteStyles.js'
 //represents each palette. Linked from palettelist 
 class Palette extends Component {
     constructor(props) {
@@ -30,14 +30,15 @@ class Palette extends Component {
     }
 
     render() {
+        const {classes} = this.props;
         return (
-            <div className="Palette">
+            <div className= {classes.Palette}>
                 <div className='NavBar'>
                     <NavBar showSlide = {true} setFormat={this.setFormat} slideDefault={this.state.shade} slide={this.handleSlide} />
                 </div>
-                <div className="Palette-colors">
+                <div className={classes.PaletteColors}>
                     {this.props.palette.colors[this.state.shade].map(color =>
-                        <ColorBox showLink = {true} key={color.name} color={color[this.state.format]} name={color.name} colorId = {color.id} paletteId = {this.props.palette.id}/>)}
+                        <ColorBox showFullPalette = {true} key={color.name} color={color[this.state.format]} name={color.name} colorId = {color.id} paletteId = {this.props.palette.id}/>)}
                 </div>
                 <Footer emoji = {this.props.palette.emoji} content = {this.props.palette.paletteName} ></Footer>
                 
@@ -46,4 +47,4 @@ class Palette extends Component {
     }
 }
 
-export default Palette;
+export default withStyles(styles)(Palette);
