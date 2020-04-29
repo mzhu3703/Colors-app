@@ -1,38 +1,8 @@
 import React, { Component } from 'react';
 import MiniPalette from './MiniPalette';
 import { withStyles } from '@material-ui/core/styles';
-
-const styles = {
-    root: {
-        backgroundColor: "blue",
-        height: "100vh",
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "center"
-
-    },
-    container: {
-        width: "50%",
-        display: "flex",
-        alignItems: "flex-start",
-        flexDirection: "column",
-        flexWrap: "wrap"
-
-    },
-    nav: {
-        display: "flex",
-        width: "100%",
-        justifyContent: "spacebetween"
-    },
-    palettes: {
-        boxSizing: "border-box",
-        width: "100%",
-        display: "grid",
-        gridTemplateColumns: "repeat(3,30%)",
-        gridGap: "5%",
-
-    }
-}
+import {Link} from 'react-router-dom';
+import styles from '/home/michael/colors-app/colors-app/src/Styling/PaletteListStyles.js'
 //displays the different palettes on the front page . Parent is app
 class PaletteList extends Component {
 
@@ -46,11 +16,11 @@ class PaletteList extends Component {
                 <div className={this.props.classes.container}>
                     <nav className={this.props.classes.nav}>
                         <h1>React Colors</h1>
+                        <Link to = '/palette/new'>Create Palette</Link>
                     </nav>
                     <div className={this.props.classes.palettes}>
                         {/* loops through the seedColor and creates a link to the corresponding palette  */}
                         {this.props.palettes.map(palettes => (
-
                             <MiniPalette key={palettes.id} onClick={this.handleClick} palette={palettes} handleClick={() => this.link(palettes.id)}></MiniPalette>
 
                         ))}
