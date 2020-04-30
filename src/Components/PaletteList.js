@@ -21,6 +21,7 @@ class PaletteList extends Component {
                     <div className={this.props.classes.palettes}>
                         {/* loops through the seedColor and creates a link to the corresponding palette  */}
                         {this.props.palettes.map(palettes => (
+                            
                             <MiniPalette key={palettes.id} onClick={this.handleClick} palette={palettes} handleClick={() => this.link(palettes.id)}></MiniPalette>
 
                         ))}
