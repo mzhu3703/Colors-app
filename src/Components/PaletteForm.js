@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -12,10 +11,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { ChromePicker } from 'react-color';
 import Button from '@material-ui/core/Button';
-import MakeColorBox from './MakeColorBox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
-
+import DraggableContainer from './DraggableContainer'
+import arrayMove from 'array-move';
+import PaletteFormNav from './PaletteFormNav.js'
 
 const drawerWidth = 330;
 
@@ -79,22 +79,30 @@ const styles = theme => ({
     },
 
 })
+//array to check if color has been added for random color function
+const checkExists = [];
 
 class PaletteForm extends Component {
+    static defaultProps = {
+        max: 20
+    }
     constructor(props) {
         super(props);
         this.state = {
-            open: true,
-            paletteName: '',
+            open: false,
             currentColor: 'teal',
+            paletteName: '',
             newColor: '',
-            paletteArray: [
-            ]
+            paletteArray: this.props.allPalettes[0].colors
         }
+
+        this.randomColor = this.randomColor.bind(this)
+        this.clearPalette = this.clearPalette.bind(this)
         this.addColor = this.addColor.bind(this)
         this.savePalette = this.savePalette.bind(this)
         this.handleChange = this.handleChange.bind(this)
-        this.paletteName = this.paletteName.bind(this);
+       
+        this.delete = this.delete.bind(this);
     }
 
     componentDidMount() {
@@ -126,14 +134,13 @@ class PaletteForm extends Component {
         });
     }
 
-
-    handleDrawerOpen = () => {
-        this.setState({ open: true })
-    };
-
     handleDrawerClose = () => {
         this.setState({ open: false })
     };
+    handleDrawerOpen = () => {
+        this.setState({ open: true })
+    };
+    
     //adds the new color to the paletteArray
     addColor() {
         //creates color object 
@@ -156,19 +163,63 @@ class PaletteForm extends Component {
     };
 
     //saves palette, props passed from parent in app component
-    savePalette() {
+    savePalette(paletteName) {
         const newPalette = {
-            paletteName: this.state.paletteName,
+            paletteName: paletteName,
             colors: this.state.paletteArray,
-            id: this.state.paletteName.replace(/\s/g, '-')
+            id: paletteName.replace(/\s/g, '-')
         }
         this.props.savePalette(newPalette)
         this.props.history.push("/")
     }
 
-    paletteName(evt) {
+    clearPalette() {
+        const emptyArray = []
+        this.setState({
+            paletteArray: emptyArray
+        })
+    }
 
-        this.setState({ paletteName: evt.target.value });
+    randomColor() {
+        const allPaletteColor = [];
+        //allPaletteColor now has all the colors and names
+        this.props.allPalettes.forEach((element) => {
+            allPaletteColor.push(...element.colors); // 100, 200, 300
+        });
+        //gets a random object from existing palettes
+        let randomColor = allPaletteColor[Math.floor(Math.random() * allPaletteColor.length)]; 
+        if (!this.inArray(checkExists, randomColor)) {
+            checkExists.push(randomColor)
+            this.setState({
+                paletteArray: [...this.state.paletteArray, randomColor],
+            })
+        }
+    }
+
+    //helper function to not duplicate a color from previous palettes
+    inArray(array, el) {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].name === el.name) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    
+    delete(name) {
+
+        const newArray = this.state.paletteArray.filter(color => color.name !== name)
+        this.setState({
+            paletteArray: newArray
+        })
+
+    }
+
+    onSortEnd = ({ oldIndex, newIndex }) => {
+        this.setState(({ paletteArray }) => ({
+            paletteArray: arrayMove(paletteArray, oldIndex, newIndex),
+        }));
     }
 
     render() {
@@ -176,8 +227,8 @@ class PaletteForm extends Component {
         const { open } = this.state;
         return (
             <div className={classes.root}>
-                <CssBaseline />
-                <AppBar
+                <PaletteFormNav handleDrawerOpen = {this.handleDrawerOpen} open = {this.state.open} handleSave = {this.savePalette}/>
+                {/* <AppBar
                     color='default'
                     position="fixed"
                     className={clsx(classes.appBar, {
@@ -197,7 +248,7 @@ class PaletteForm extends Component {
                         <Typography variant="h6" noWrap>
                             Create a palette
                         </Typography>
-                        <ValidatorForm onSubmit={this.savePalette}>
+                        <ValidatorForm onSubmit={this.handleSubmit}>
                             <TextValidator
                                 label='palette name'
                                 value={this.state.paletteName}
@@ -216,7 +267,7 @@ class PaletteForm extends Component {
                         </Link>
                     </Toolbar>
 
-                </AppBar>
+                </AppBar> */}
                 <Drawer
                     className={classes.drawer}
                     variant="persistent"
@@ -235,10 +286,10 @@ class PaletteForm extends Component {
                     <div className="drawer-content">
                         <Typography variant='h4'>Design your palette</Typography>
                         <div>
-                            <Button variant="contained" color="primary">
+                            <Button onClick={this.clearPalette} variant="contained" color="primary">
                                 Clear Palette
                             </Button>
-                            <Button variant="contained" color="secondary">
+                            <Button disabled = {this.state.paletteArray.length >= this.props.max} onClick={this.randomColor} variant="contained" color="secondary">
                                 Random Color
                             </Button>
 
@@ -255,7 +306,7 @@ class PaletteForm extends Component {
                                 validators={['required', 'colorNameExists', 'colorExists']}
                                 errorMessages={['This field is required', 'Color name already used', 'Color already created']}
                             />
-                            <Button type='submit' variant='contained' color='primary' style={{ background: this.state.currentColor }}>Add Color</Button>
+                            <Button disabled = {this.state.paletteArray.length >= this.props.max} type='submit' variant='contained' color='primary' style={{ background: this.state.currentColor }}>Add Color</Button>
                         </ValidatorForm>
 
 
@@ -268,8 +319,13 @@ class PaletteForm extends Component {
                     })}
                 >
                     <div className={classes.drawerHeader} />
-                    {this.state.paletteArray.map(box =>
-                        <MakeColorBox color={box.color} name={box.name} />)}
+                    {/* container accepts the array of colors as a prop, function is also passed down for deleting */}
+                    <DraggableContainer
+                        paletteArray={this.state.paletteArray}
+                        handleDelete={this.delete}
+                        axis="xy"
+                        onSortEnd={this.onSortEnd}
+                    />
                 </main>
 
             </div>
