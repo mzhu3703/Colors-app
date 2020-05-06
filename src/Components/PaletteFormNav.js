@@ -8,8 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
+import PaletteMetaForm from './PaletteMetaForm';
 
 const drawerWidth = 340;
 
@@ -41,7 +41,19 @@ const styles = theme => ({
         display: 'none',
     },
     buttons: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    },
+    displayButton: {
+        marginRight: '10px',
+    },
+    backButton: {
+        marginRight: '10px',
+        textDecoration: 'none'
     }
+
 })
 
 class PaletteFormNav extends Component {
@@ -49,36 +61,33 @@ class PaletteFormNav extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            paletteName: '',
+            displayForm: false
         }
-        this.paletteName = this.paletteName.bind(this);
-        this.handleSave = this.handleSave.bind(this);
+        this.handleSaveFormNav = this.handleSaveFormNav.bind(this);
+        this.displayForm = this.displayForm.bind(this);
+        this.closeForm = this.closeForm.bind(this);
     }
 
-    paletteName(evt) {
-        this.setState({ paletteName: evt.target.value });
-    }
-
-    handleSave() {
-        this.props.handleSave(this.state.paletteName)
+    handleSaveFormNav(palette) {
+        this.props.handleSave(palette)
 
     }
 
-    componentDidMount() {
-        ValidatorForm.addValidationRule('paletteNameExists', (value) => {
-            for (let i = 0; i < this.props.allPalettes.length; i++) {
-                if (value.toLowerCase() === this.props.allPalettes[i].paletteName.toLowerCase()) {
-                    return false;
-                }
-            }
-            return true;
-        });
+    displayForm() {
+        this.setState(prevState => ({
+            displayForm: !prevState.displayForm
+        }));
     }
 
+    closeForm(){
+        this.setState({
+            displayForm: false
+        })
+
+    }
 
     render() {
-        const { classes} = this.props;
-
+        const { classes } = this.props;
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -102,30 +111,26 @@ class PaletteFormNav extends Component {
                         <Typography variant="h6" noWrap>
                             Create a palette
                         </Typography>
-
                     </Toolbar>
                     <div className={classes.buttons}>
-
-                        <ValidatorForm onSubmit={this.handleSave}>
-                            <TextValidator
-                                label='palette name'
-                                value={this.state.paletteName}
-                                onChange={this.paletteName}
-                                validators={['required', 'paletteNameExists']}
-                                errorMessages={['This field is required', 'Palette Name already used']}
-                            />
-                            <Button type="submit" variant="contained" color="secondary">
-                                Save Palette
-                                </Button>
-                        </ValidatorForm>
-                        <Link to='/'>
+                        {/* <PaletteMetaForm handleMetaNav={this.handleSaveFormNav} allPalettes={this.props.allPalettes} /> */}
+                        <Button
+                            className={classes.displayButton}
+                            variant="contained"
+                            color="secondary"
+                            onClick={this.displayForm}
+                        >
+                            Save Palette
+                        </Button>
+                        <Link className={classes.backButton} to='/'>
                             <Button variant="contained" color="primary">
                                 go Back
-                                </Button>
+                            </Button>
                         </Link>
                     </div>
 
                 </AppBar>
+                {this.state.displayForm && <PaletteMetaForm handleMetaNav={this.handleSaveFormNav} allPalettes={this.props.allPalettes} displayForm = {this.closeForm}/>}
 
             </div>
         )

@@ -112,7 +112,7 @@ class PaletteForm extends Component {
     }
   
 
-    //saves palette, props passed from parent in app component
+    //saves palette, props passed from parent in app component. Passed tp PaletteFormNav
     savePalette(paletteName) {
         const newPalette = {
             paletteName: paletteName,
