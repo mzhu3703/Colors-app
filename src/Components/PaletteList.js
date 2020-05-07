@@ -5,11 +5,21 @@ import {Link} from 'react-router-dom';
 import styles from '/home/michael/colors-app/colors-app/src/Styling/PaletteListStyles.js'
 //displays the different palettes on the front page . Parent is app
 class PaletteList extends Component {
+    constructor(props){
+        super(props);
+        this.handleDelete = this.handleDelete.bind(this);
+    }
 
     link(id) {
         this.props.history.push(`/palette/${id}`)
     }
 
+    //function that calls parent prop in app, passed to minipalette for paletteId
+    handleDelete(id){
+        this.props.handleDelete(id)
+    }
+
+    //in order to delete a palette need to render all the palettes without the miniPaletteId
     render() {
         return (
             <div className={this.props.classes.root}>
@@ -22,7 +32,7 @@ class PaletteList extends Component {
                         {/* loops through the seedColor and creates a link to the corresponding palette  */}
                         {this.props.palettes.map(palettes => (
                             
-                            <MiniPalette key={palettes.id} onClick={this.handleClick} palette={palettes} handleClick={() => this.link(palettes.id)}></MiniPalette>
+                            <MiniPalette handleDelete= {this.handleDelete} key={palettes.id} id = {palettes.id} onClick={this.handleClick} palette={palettes} handleClick={() => this.link(palettes.id)}></MiniPalette>
 
                         ))}
                     </div>

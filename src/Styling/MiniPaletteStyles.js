@@ -7,12 +7,17 @@ export default {
         overflow: "hidden",
         "&:hover": {
             cursor: "pointer",
-        }
+        },
+        position: 'relative',
+          "&:hover svg": {
+            opacity: "1",
+            transition: "all .2s ease-in-out",
+        },
 
     },
     colors: {
         backgroundColor: "#dae1e4",
-        height: "150px",
+        height: "200px",
         width: "100%",
         borderRadius: "5px",
         overflow: "hidden",
@@ -38,5 +43,17 @@ export default {
         margin: "0 auto",
         position: "relative",
         marginBottom: "-3.5px"
-    }
+    },
+    icon: {
+        position: 'absolute',
+        top: '0px',
+        right: '0px',
+        width: 30,
+        height: 30,
+        color: 'white', 
+        backgroundColor: 'red',
+        opacity: '0',
+        zIndex: '5',
+
+    },
 }

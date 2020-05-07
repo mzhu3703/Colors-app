@@ -11,65 +11,7 @@ import DraggableContainer from './DraggableContainer'
 import arrayMove from 'array-move';
 import PaletteFormNav from './PaletteFormNav.js';
 import ColorPickerForm from './ColorPickerForm';
-
-const drawerWidth = 400;
-
-const styles = theme => ({
-    root: {
-        display: 'flex',
-
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-     
-    },
-    drawerPaper: {
-        width: drawerWidth,
-        display: 'flex',
-        alignItems: 'center',
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
-        height: "calc(100vh - 64px)",
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-    },
-    drawerContent: {
-        display: 'flex',
-        justifyContent: 'center',
-        height: '100%',
-        alignItems: 'center',
-        flexDirection: 'column'
-    },
-    drawerButtons:{
-        width: '100%',
-    },
-    button:{
-        marginTop: '5px',
-        width: '50%',
-    },
-
-})
+import styles from '/home/michael/colors-app/colors-app/src/Styling/PaletteFormStyles.js'
 //array to check if color has been added for random color function
 const checkExists = [];
 
@@ -113,11 +55,12 @@ class PaletteForm extends Component {
   
 
     //saves palette, props passed from parent in app component. Passed tp PaletteFormNav
-    savePalette(paletteName) {
+    savePalette(paletteName,emoji) {
         const newPalette = {
             paletteName: paletteName,
             colors: this.state.paletteArray,
-            id: paletteName.replace(/\s/g, '-')
+            id: paletteName.replace(/\s/g, '-'),
+            emoji: emoji
         }
         this.props.savePalette(newPalette)
         this.props.history.push("/")

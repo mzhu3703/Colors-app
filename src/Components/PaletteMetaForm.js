@@ -21,15 +21,29 @@ class PaletteMetaForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: true,
+            paletteOpen: true,
+            emojiOpen: false,
             paletteName: '',
         }
         this.paletteName = this.paletteName.bind(this);
         this.handleSaveMeta = this.handleSaveMeta.bind(this);
+        this.savePalette = this.savePalette.bind(this);
+    }
+
+    savePalette(emoji){
+        console.log(emoji.native)
+        this.props.handleMetaNav(this.state.paletteName, emoji.native)
     }
 
     handleSaveMeta() {
         this.props.handleMetaNav(this.state.paletteName)
+    }
+
+    handleEmojiOpen = () => {
+        this.setState({
+            emojiOpen: true,
+            paletteOpen: false,
+        })
     }
 
 
@@ -39,17 +53,17 @@ class PaletteMetaForm extends Component {
 
     handleClickOpen = () => {
         this.setState({
-            open: true
+            paletteOpen: true
         });
     };
 
     handleClose = () => {
         this.setState({
-            open: false
+            paletteOpen: false
         },
-        //resets the state of paletteformnav when closed
-        this.props.displayForm());
-        
+            //resets the state of paletteformnav when closed
+            this.props.displayForm());
+
     };
 
     componentDidMount() {
@@ -66,18 +80,25 @@ class PaletteMetaForm extends Component {
     render() {
         const { classes } = this.props
         return (
+            <div>
+                <Dialog open = {this.state.emojiOpen}>
+                    <Picker 
+                        title='Pick your emoji…'
+                        onSelect={this.savePalette}
+                        />
+                </Dialog>
                 <Dialog
-                    open={this.state.open}
+                    open={this.state.paletteOpen}
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
                     <DialogTitle id="form-dialog-title">Choose a Palette Name</DialogTitle>
-                    <ValidatorForm onSubmit={this.handleSaveMeta}>
+                    <ValidatorForm onSubmit={this.handleEmojiOpen}>
                         <DialogContent>
                             <DialogContentText>
                                 Please enter a name for your new palette!. It needs to be unique!
                             </DialogContentText>
-                            <Picker/>
+                           
                             <TextValidator
                                 label='Palette name'
                                 value={this.state.paletteName}
@@ -98,6 +119,7 @@ class PaletteMetaForm extends Component {
                         </DialogActions>
                     </ValidatorForm>
                 </Dialog>
+            </div>
         );
     }
 }
