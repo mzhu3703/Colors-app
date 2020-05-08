@@ -63,7 +63,7 @@ class NavBar extends Component {
                     <div>
                         <span>Level: {this.props.slideDefault}</span>
                         <div className={classes.slideWrapper}>
-                            <Slider defaultValue={this.props.slideDefault} min={100} max={900} step={100} onAfterChange={this.handleSlide} />
+                            <Slider className = {classes.slider} defaultValue={this.props.slideDefault} min={100} max={900} step={100} onAfterChange={this.handleSlide} />
                         </div>
                     </div>
                 }

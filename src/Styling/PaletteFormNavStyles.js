@@ -1,4 +1,4 @@
-
+import sizes from './Sizes'
 const drawerWidth = 340;
 
 const styles = theme => ({
@@ -31,15 +31,33 @@ const styles = theme => ({
     buttons: {
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: "center",
         alignItems: 'center',
+        [sizes.down("xs")] :{
+            
+        },
 
     },
     displayButton: {
         marginRight: '10px',
+        [sizes.down("xs")] :{
+            fontSize: '0.55rem',
+            fontWeight: '1000'
+        },
     },
-    backButton: {
+    backButtonLink: {
         marginRight: '10px',
-        textDecoration: 'none'
+        textDecoration: 'none',
+       
+    },
+    backButton:{
+        [sizes.down("xs")] :{
+            marginLeft : '0.25rem',
+            fontSize: '0.55rem',
+            fontWeight: '1000'
+         
+        },
+
     }
 
 })

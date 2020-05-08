@@ -1,11 +1,15 @@
-
+import sizes from './Sizes'
+import bg from '/home/michael/colors-app/colors-app/src/Styling/bg.svg'
 export default {
     root: {
-        backgroundColor: "blue",
+        backgroundColor: '#131faa',
         height: "100vh",
         display: "flex",
         alignItems: "flex-start",
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundImage: `url(${bg})`,
+        /* background by SVGBackgrounds.com */
+        overflow: 'scroll',
 
     },
     container: {
@@ -13,7 +17,11 @@ export default {
         display: "flex",
         alignItems: "flex-start",
         flexDirection: "column",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        [sizes.down("xl")] :{
+            width: "80%",
+        },
+        
 
     },
     nav: {
@@ -26,16 +34,34 @@ export default {
             color: 'white',
             textDecoration: 'none',
             display: 'flex',
-          
-            marginLeft: 'auto'
+            marginRight: '60px',
+            marginLeft: 'auto',
+            [sizes.down("xl")] :{
+                marginRight: '60px',
+            },
+            [sizes.down("md")] :{
+                marginRight: '20px',
+            },
+            [sizes.down("xs")] :{
+                marginRight: '15px',
+            },
         }
+            
     },
     palettes: {
         boxSizing: "border-box",
         width: "100%",
         display: "grid",
         gridTemplateColumns: "repeat(3,30%)",
-        gridGap: "5%",
+        gridGap: "1.5rem",
+        [sizes.down("md")] :{
+            gridTemplateColumns: "repeat(2,50%)",
+            gridGap: "2%",
+        },
+        [sizes.down("xs")] :{
+            gridTemplateColumns: "repeat(1,100%)",
+            gridGap: "2%",
+        },
 
     }
 }

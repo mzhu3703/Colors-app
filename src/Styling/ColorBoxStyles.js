@@ -1,8 +1,9 @@
 import chroma from "chroma-js";
-
+import sizes from "./Sizes";
 export default {
     colorBox:{
         width: '20%',
+        //want color boxes of each individual color to be 50%
         height: props => 
             props.showFullPalette === true ? '25%': '50%',
         margin: '0 auto',
@@ -13,7 +14,28 @@ export default {
         '&:hover button':{
             opacity: '1',
             transition: 'all .3s ease-in-out'
-        }
+        },
+        [sizes.down("large") ] :{
+            width: "25%",
+            height: props => 
+            props.showFullPalette === true ? '20%': '33%',
+        },
+        [sizes.down("md") ] :{
+            width: "50%",
+            height: props => 
+            props.showFullPalette === true ? '10%': '20%',
+        },
+        //size for xs
+        [sizes.down("xs")] :{
+            width: "100%",
+            height: props => 
+            props.showFullPalette === true ? '5%': '10%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+         
+        },
+     
     },
     //changes the luminosity when copying palette
     copyText:{
@@ -33,6 +55,7 @@ export default {
         textTransform: 'uppercase',
         fontSize: '12px',
         width: '50px',
+        whiteSpace: 'nowrap'
     },
     moreButton:{
         color: props =>
@@ -45,7 +68,14 @@ export default {
         padding: "10px",
         height: "5%",
         textAlign: "center",
-        transition: "all .2s ease-in-out"
+        transition: "all .2s ease-in-out",
+        whiteSpace: 'normal',
+        [sizes.down("md") ] :{
+            lineHeight: '10px',
+        },
+        [sizes.down("xs") ] :{
+            lineHeight: '2px',
+        },
     },
     copyButton:{
         color: props =>
@@ -106,6 +136,9 @@ export default {
             width: '100%',
             textTransform: 'uppercase',
             marginBottom: '0',
+            [sizes.down("xs")] :{
+                fontSize: '2rem'
+            },
         }
     },
     showCopyMessage:{

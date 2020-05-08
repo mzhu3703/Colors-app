@@ -1,4 +1,5 @@
-
+import sizes from "./Sizes";
+//styles for each individual color palette
 export default {
     Palette:{
         height: '100vh',
@@ -37,7 +38,19 @@ export default {
             opacity: '1',
             textDecoration: 'none',
             color: 'white',
-        }
+        },
+        [sizes.down("large")] :{
+            width: "25%",
+            height: "33%",
+        },
+        [sizes.down("md")] :{
+            width: "50%",
+            height: "20%",
+        },
+        [sizes.down("xs")] :{
+            width: "100%",
+            height: "10%",
+        },
         
     }
 }

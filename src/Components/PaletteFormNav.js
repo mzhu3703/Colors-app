@@ -77,8 +77,8 @@ class PaletteFormNav extends Component {
                         >
                             Save Palette
                         </Button>
-                        <Link className={classes.backButton} to='/'>
-                            <Button variant="contained" color="primary">
+                        <Link className={classes.backButtonLink} to='/'>
+                            <Button className = {classes.backButton} variant="contained" color="primary">
                                 Go Back
                             </Button>
                         </Link>
