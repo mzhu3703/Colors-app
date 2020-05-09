@@ -1,6 +1,17 @@
 import sizes from './Sizes'
 import bg from '/home/michael/colors-app/colors-app/src/Styling/bg.svg'
 export default {
+    //global so the classNames arent prefixed with the component name
+    "@global":{
+        
+        ".fade-exit":{
+        opacity: 1,    
+        },
+        ".fade-exit-active":{
+            opacity: 0,
+            transition: 'opacity 500ms ease-in',
+        }
+    },
     root: {
         backgroundColor: '#131faa',
         height: "100vh",
@@ -63,5 +74,30 @@ export default {
             gridGap: "2%",
         },
 
+    },
+    deleteTitle:{
+       marginBottom: '-15px',
+    },
+    buttonWrapper:{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+
+    },
+    checkButton:{
+        width: '100%',
+        padding: '10px',
+    },
+    closeButton:{
+        width: '100%',
+        padding: '10px',
+    },
+    check:{
+        color: 'green',
+        marginRight: '10px',
+    },
+    close:{
+        color: 'red',
+        marginRight: '10px',
     }
 }

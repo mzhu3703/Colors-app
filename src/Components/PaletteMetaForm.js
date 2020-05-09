@@ -17,6 +17,7 @@ const styles = theme => ({
 
 })
 
+//Form that shows when display is clicked. Parent is PaletteFormNav
 class PaletteMetaForm extends Component {
     constructor(props) {
         super(props);
@@ -31,7 +32,6 @@ class PaletteMetaForm extends Component {
     }
 
     savePalette(emoji){
-        console.log(emoji.native)
         this.props.handleMetaNav(this.state.paletteName, emoji.native)
     }
 

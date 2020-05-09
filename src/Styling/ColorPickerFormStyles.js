@@ -1,8 +1,9 @@
 const styles = theme => ({
     picker:{
-        width: '100% !important',
+        width: '400px !important',
         marginTop: '15px',
         marginBottom: '10px',
+        
     },
     addColorButton:{
         width: '100%',

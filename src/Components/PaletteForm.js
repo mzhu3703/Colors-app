@@ -11,6 +11,7 @@ import DraggableContainer from './DraggableContainer'
 import arrayMove from 'array-move';
 import PaletteFormNav from './PaletteFormNav.js';
 import ColorPickerForm from './ColorPickerForm';
+import seedColors from './seedColors'
 import styles from '/home/michael/colors-app/colors-app/src/Styling/PaletteFormStyles.js'
 //array to check if color has been added for random color function
 const checkExists = [];
@@ -24,7 +25,7 @@ class PaletteForm extends Component {
         this.state = {
             open: true,
             paletteName: '', 
-            paletteArray: this.props.allPalettes[0].colors
+            paletteArray: seedColors[0].colors
         }
 
         this.randomColor = this.randomColor.bind(this)
@@ -81,7 +82,7 @@ class PaletteForm extends Component {
         });
         //gets a random object from existing palettes
         let randomColor = allPaletteColor[Math.floor(Math.random() * allPaletteColor.length)]; 
-        if (!this.inArray(checkExists, randomColor)) {
+        while (!this.inArray(checkExists, randomColor)) {
             checkExists.push(randomColor)
             this.setState({
                 paletteArray: [...this.state.paletteArray, randomColor],
@@ -167,6 +168,7 @@ class PaletteForm extends Component {
                         handleDelete={this.delete}
                         axis="xy"
                         onSortEnd={this.onSortEnd}
+                        distance = {20}
                     />
                 </main>
 

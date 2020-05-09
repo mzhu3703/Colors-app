@@ -1,17 +1,18 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import styles from '/home/michael/colors-app/colors-app/src/Styling/MiniPaletteStyles.js'
 import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 
 //clickable boxes on front page. Parent is PaletteList
-class MiniPalette extends Component {
+class MiniPalette extends PureComponent {
     constructor(props){
         super(props)
         this.handleClick = this.handleClick.bind(this);
     }
    handleClick(evt){
         evt.stopPropagation();
-        this.props.handleDelete(this.props.id)
+        this.props.showDelete(this.props.id);
+        // this.props.handleDelete(this.props.id);
    } 
 
    render(){

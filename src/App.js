@@ -5,7 +5,7 @@ import PaletteList from './Components/PaletteList'
 import { generatePalette } from './Colorhelper'
 import { Route, Switch } from 'react-router-dom'
 import SingleColorPalette from './Components/SingleColorPalette';
-import PaletteForm from './Components/PaletteForm'
+import PaletteForm from './Components/PaletteForm';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -48,9 +48,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
         <Switch>
-          {/* route to create a palette order matters could be rendered as an id or paletteName*/}
+          {/* route to create a palette ,order matters could be rendered as an id or paletteName*/}
           <Route exacpt path='/palette/new' render={(routeProps) => <PaletteForm allPalettes={this.state.palettes} savePalette={this.savePalette} {...routeProps} />} />
           {/* seedColor is passed as a prop to create each palette  */}
           <Route exact path='/' render={(routeProps) => <PaletteList palettes={this.state.palettes} {...routeProps} handleDelete={this.delete} />}
@@ -60,10 +59,9 @@ class App extends Component {
           {/* route for palettes of single color */}
           <Route exact path='/palette/:paletteName/:colorName' render={(routeProps) =>
             <SingleColorPalette colorId={routeProps.match.params.colorName} palette={generatePalette(this.findPalette(routeProps.match.params.paletteName))} />} />
-
+           <Route render={(routeProps) => <PaletteList palettes={this.state.palettes} {...routeProps} handleDelete={this.delete} />}/>
         </Switch>
-      </div>
-    );
+      )
   }
 }
 

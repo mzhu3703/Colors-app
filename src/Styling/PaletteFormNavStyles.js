@@ -1,5 +1,5 @@
 import sizes from './Sizes'
-const drawerWidth = 340;
+const drawerWidth = 420;
 
 const styles = theme => ({
     root: {
@@ -15,7 +15,7 @@ const styles = theme => ({
         justifyContent: 'space-between'
     },
     appBarShift: {
-        width: `calc(97% - ${drawerWidth}px)`,
+        width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.easeOut,
