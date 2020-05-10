@@ -6,6 +6,7 @@ import { generatePalette } from './Colorhelper'
 import { Route, Switch } from 'react-router-dom'
 import SingleColorPalette from './Components/SingleColorPalette';
 import PaletteForm from './Components/PaletteForm';
+
 class App extends Component {
   constructor(props) {
     super(props);
